@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    Titles-->
+    <string name="title_main">Main</string>
+    <string name="title_favorite">Favorites</string>
+</resources>

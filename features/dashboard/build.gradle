@@ -1,0 +1,110 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdkVersion Config.compileSdk
+    buildToolsVersion Config.buildTools
+
+    defaultConfig {
+        minSdkVersion Config.minSdk
+        targetSdkVersion Config.targetSdk
+        versionCode Config.versionCode
+        versionName Config.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+    implementation Deps.tools_kotlin_stdlib
+    implementation Deps.androidx_core
+    implementation Deps.androidx_appcompat
+    implementation Deps.material
+
+    // Projects
+    implementation project(':features:movieitem')
+    implementation project(':libraries:network-components')
+    implementation project(':libraries:ui-components')
+
+    //Paging
+    implementation Deps.paging
+
+    // Glide
+    kapt Deps.glide_compiler
+    implementation Deps.glide
+
+    //Groupie
+    implementation Deps.groupie
+    implementation Deps.groupie_viewbinding
+
+    // Navigation
+    implementation Deps.navigation_fragment
+    implementation Deps.navigation_ui
+
+    implementation Deps.fragment_ktx
+    //Network
+    implementation Deps.retroift
+    implementation Deps.retrofit_converter
+    implementation Deps.okhttp3
+
+    //Lifecycle
+    implementation Deps.lifecycle_process
+    implementation Deps.lifecycle_viewmodel
+    testImplementation Deps.lifecycle_test
+
+    //LiveEvent
+    implementation Deps.live_event
+
+    // Material
+    implementation Deps.material
+
+    // Timber
+    implementation Deps.timber
+
+    // Constraint layout
+    implementation Deps.androidx_constraint
+    // Coroutines
+    implementation Deps.coroutines_core
+    implementation Deps.androidx_coroutines
+    testImplementation Deps.coroutines_core
+    testImplementation Deps.androidx_coroutines
+
+    //Swiperefreshlayout
+    implementation Deps.swiperefreshlayout
+
+    //Koin
+    implementation Deps.androidx_koin
+    implementation Deps.koin_scope
+    implementation Deps.koin_viewmodel
+    testImplementation Deps.koin_test
+
+    // Swipe refresh layout
+    implementation Deps.swiperefreshlayout
+
+    testImplementation Deps.testlib_junit
+    androidTestImplementation Deps.testext_junit
+    androidTestImplementation Deps.testandroidx_espressocore
+}

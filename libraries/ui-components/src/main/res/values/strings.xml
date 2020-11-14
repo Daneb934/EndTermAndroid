@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loading">Loading...</string>
+
+<!--    Snackbar-->
+    <string name="snackbar_success_added_favorite">Added to favorites</string>
+    <string name="snackbar_failure_added_favorite">Oopps... Error</string>
+    <string name="snackbar_success_delete_favorite">Deleted from favorites</string>
+    <string name="snackbar_failure_delete_favorite">Oopps... Error</string>
+
+<!--    Warning-->
+    <string name="text_no_favorite">No movies in favorites</string>
+
+<!--    Errors-->
+    <string name="error_internet_request_title">Loading not competed</string>
+
+<!--    Actions-->
+    <string name="action_update_page">Update...</string>
+</resources>
