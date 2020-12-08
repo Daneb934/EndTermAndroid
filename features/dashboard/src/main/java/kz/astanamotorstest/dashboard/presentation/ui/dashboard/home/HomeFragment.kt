@@ -13,6 +13,7 @@ import com.xwray.groupie.GroupieViewHolder
 import kz.astanamotorstest.dashboard.R
 import kz.astanamotorstest.dashboard.databinding.FragmentHomeBinding
 import kz.astanamotorstest.dashboard.entity.movie.MovieUi
+import kz.astanamotorstest.dashboard.entity.movie.post.PostUi
 import kz.astanamotorstest.movieitem.entity.args.ItemArgs
 import kz.astanamotorstest.network_components.ResultState
 import kz.astanamotorstest.ui_components.base.BaseFragment
@@ -21,7 +22,7 @@ import kz.astanamotorstest.ui_components.utils.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class HomeFragment : BaseFragment<List<MovieUi>, HomeViewModel>() {
+class HomeFragment : BaseFragment<List<PostUi>, HomeViewModel>() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -45,15 +46,15 @@ class HomeFragment : BaseFragment<List<MovieUi>, HomeViewModel>() {
 
     override fun updatePage() {
         Timber.i("updatePage")
-        vm.loadNewData()
+        vm.loadData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.i("onViewCreated")
         groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
-            setOnItemClickListener { item, view ->
-                vm.onClickMovie(item as MovieItem)
+            setOnItemClickListener { item, _ ->
+                vm.onClickMovie(item as PostItem)
             }
         }
         setupRecycler()
@@ -70,7 +71,6 @@ class HomeFragment : BaseFragment<List<MovieUi>, HomeViewModel>() {
             binding.contentError.visibility = View.VISIBLE
             binding.moviesRv.visibility = View.GONE
             groupAdapter.clear()
-            vm.clearList()
         } else {
             binding.contentError.visibility = View.GONE
             binding.moviesRv.visibility = View.VISIBLE
@@ -80,7 +80,7 @@ class HomeFragment : BaseFragment<List<MovieUi>, HomeViewModel>() {
     private fun initSwipeRefresh() {
         Timber.i("initSwipeReflesh")
         binding.swipeRefresh.setOnRefreshListener {
-            vm.loadNewData()
+            vm.loadData()
         }
     }
 
@@ -113,36 +113,36 @@ class HomeFragment : BaseFragment<List<MovieUi>, HomeViewModel>() {
         }
     }
 
-    private fun onChangeMovieResponse(result: ResultState<List<MovieUi>>) {
+    private fun onChangeMovieResponse(result: ResultState<List<PostUi>>) {
         Timber.i("onChangeMovieResponse, result = $result")
         binding.swipeRefresh.isRefreshing = false
         if (result is ResultState.Success) {
             groupAdapter.clear()
-            groupAdapter.addAll(result.data.map { MovieItem(movieUi = it) })
+            groupAdapter.addAll(result.data.map { PostItem(post = it) })
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        Timber.i("onPause")
-        index = if (binding
-                .moviesRv
-                .layoutManager != null &&
-            binding
-                .moviesRv.layoutManager is LinearLayoutManager
-        ) {
-            (binding
-                .moviesRv.layoutManager as LinearLayoutManager)
-                .findFirstVisibleItemPosition()
-        } else 0
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Timber.i("onResume")
-        binding
-            .moviesRv.scrollToPosition(index)
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        Timber.i("onPause")
+//        index = if (binding
+//                .moviesRv
+//                .layoutManager != null &&
+//            binding
+//                .moviesRv.layoutManager is LinearLayoutManager
+//        ) {
+//            (binding
+//                .moviesRv.layoutManager as LinearLayoutManager)
+//                .findFirstVisibleItemPosition()
+//        } else 0
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        Timber.i("onResume")
+//        binding
+//            .moviesRv.scrollToPosition(index)
+//    }
 
     override fun setClickUpdate() {
         Timber.i("setClickUpdate")

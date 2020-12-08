@@ -6,6 +6,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val movieViewModelModule = module {
-    viewModel { HomeViewModel(getPopularityMoviesUseCase = get()) }
+    viewModel { HomeViewModel(getPostsUseCase = get()) }
     viewModel { FavoriteViewModel(getFavoriteUseCase = get()) }
 }

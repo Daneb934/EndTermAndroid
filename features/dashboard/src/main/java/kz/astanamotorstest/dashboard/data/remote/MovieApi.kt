@@ -1,6 +1,7 @@
 package kz.astanamotorstest.dashboard.data.remote
 
 import kz.astanamotorstest.dashboard.entity.movie.MovieResponse
+import kz.astanamotorstest.dashboard.entity.movie.post.PostDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,4 +16,7 @@ interface MovieApi {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Response<MovieResponse>
+
+    @GET("https://jsonplaceholder.typicode.com/posts")
+    suspend fun getPosts(): Response<List<PostDto>>
 }

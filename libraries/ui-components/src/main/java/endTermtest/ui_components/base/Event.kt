@@ -1,6 +1,6 @@
-package kz.astanamotorstest.ui_components.base
+package endTermtest.ui_components.base
 
-import kz.astanamotorstest.network_components.BaseErrorDto
+import endTermtest.ui_components.network_components.BaseErrorDto
 
 
 /**

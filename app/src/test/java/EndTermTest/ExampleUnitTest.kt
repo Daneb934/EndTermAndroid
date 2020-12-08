@@ -1,4 +1,4 @@
-package kz.astanamotorstest
+package EndTermTest
 
 import org.junit.Test
 

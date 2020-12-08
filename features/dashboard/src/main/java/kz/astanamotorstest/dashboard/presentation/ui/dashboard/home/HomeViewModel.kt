@@ -5,8 +5,10 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.hadilq.liveevent.LiveEvent
 import kz.astanamotorstest.dashboard.domain.usecase.movie.GetPopularityMoviesUseCase
+import kz.astanamotorstest.dashboard.domain.usecase.post.GetPostsUseCase
 import kz.astanamotorstest.dashboard.entity.movie.MovieResponseUi
 import kz.astanamotorstest.dashboard.entity.movie.MovieUi
+import kz.astanamotorstest.dashboard.entity.movie.post.PostUi
 import kz.astanamotorstest.movieitem.entity.args.ItemArgs
 import kz.astanamotorstest.network_components.Failure
 import kz.astanamotorstest.network_components.ResultState
@@ -18,28 +20,28 @@ import kz.astanamotorstest.ui_components.extensions.setSuccess
 import timber.log.Timber
 
 class HomeViewModel(
-    private val getPopularityMoviesUseCase: GetPopularityMoviesUseCase
-) : BaseViewModel<List<MovieUi>>() {
+    private val getPostsUseCase: GetPostsUseCase
+) : BaseViewModel<List<PostUi>>() {
 
-    private val params = GetPopularityMoviesUseCase.Params(page = 1)
-    private val items = ArrayList<MovieUi>()
+//    private val params = GetPopularityMoviesUseCase.Params(page = 1)
+//    private val items = ArrayList<MovieUi>()
 
     private val _itemArgs: LiveEvent<Event<ItemArgs>> = LiveEvent()
     val itemArgs
         get() = _itemArgs
 
     override val loading: LiveData<Boolean> = Transformations.map(_pageResponse) {
-        it is ResultState.Loading && params.page == 1
+        it is ResultState.Loading
     }
 
     override val errorResponse: LiveData<Boolean> = Transformations.map(_pageResponse) {
-        it is ResultState.Error && params.page == 1
+        it is ResultState.Error
     }
 
     override fun loadData() {
         Timber.i("loadData")
         _pageResponse.setLoading()
-        getPopularityMoviesUseCase(viewModelScope, params) {
+        getPostsUseCase(viewModelScope, true) {
             it.either(
                 ::handleFailure,
                 ::handleSuccess
@@ -47,28 +49,29 @@ class HomeViewModel(
         }
     }
 
-    fun loadNewData() {
-        Timber.i("loadNewData")
-        clearList()
-        loadData()
-    }
+//    fun loadNewData() {
+//        Timber.i("loadNewData")
+//        clearList()
+//        loadData()
+//    }
 
-    fun clearList(){
-        Timber.i("clearList")
-        params.page = 1
-        items.clear()
-    }
-    private fun handleSuccess(response: MovieResponseUi) {
+//    fun clearList(){
+//        Timber.i("clearList")
+//        params.page = 1
+//        items.clear()
+//    }
+    private fun handleSuccess(response: List<PostUi>) {
         Timber.i("handleSuccess, response = $response")
-        items.addAll(response.results)
-        _pageResponse.setSuccess(items)
-        params.page++
+//        items.addAll(response.results)
+        _pageResponse.setSuccess(response)
+//        params.page++
     }
 
-    fun onClickMovie(movieItem: MovieItem) {
+    fun onClickMovie(movieItem: PostItem) {
         Timber.i("onClickMovie, movieItem = $movieItem")
-        val itemArgs = ItemArgs(movieId = movieItem.movieUi.id)
-        _itemArgs.postValue(Event(itemArgs))
+//        val itemArgs = ItemArgs(movieId = movieItem.movieUi.id)
+//        _itemArgs.postValue(Event(itemArgs))
+        movieItem.post
     }
 
     private fun handleFailure(f: Failure) {

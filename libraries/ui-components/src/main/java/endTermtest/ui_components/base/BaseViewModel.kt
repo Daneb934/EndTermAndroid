@@ -1,11 +1,11 @@
-package kz.astanamotorstest.ui_components.base
+package endTermtest.ui_components.base
 
 import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import kz.astanamotorstest.network_components.ResultState
+import kz.ednTermtest.network_components.ResultState
 
 open class BaseViewModel<T>: ViewModel() {
 

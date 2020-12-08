@@ -1,9 +1,9 @@
-package kz.astanamotorstest.ui_components.base
+package endTermtest.ui_components.base
 
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
-import kz.astanamotorstest.ui_components.dialogs.DialogFactory
+import kz.endTermtest.ui_components.dialogs.DialogFactory
 import timber.log.Timber
 
 abstract class BaseFragment<T, VM: BaseViewModel<T>> : BaseNetworkFragment(){

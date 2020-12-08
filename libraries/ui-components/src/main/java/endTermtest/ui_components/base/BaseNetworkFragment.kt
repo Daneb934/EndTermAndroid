@@ -1,4 +1,4 @@
-package kz.astanamotorstest.ui_components.base
+package endTermtest.ui_components.base
 
 import android.os.Bundle
 import android.view.View

@@ -3,4 +3,4 @@ include ':libraries:ui-components'
 include ':features:movieitem'
 include ':features:dashboard'
 include ':app'
-rootProject.name = "astanamotorstest"
+rootProject.name = "EndTerm"

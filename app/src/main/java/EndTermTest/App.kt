@@ -1,4 +1,4 @@
-package kz.astanamotorstest
+package EndTermTest
 
 import android.app.Application
 import android.content.Context

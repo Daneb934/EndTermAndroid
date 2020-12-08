@@ -1,4 +1,4 @@
-package kz.astanamotorstest.ui_components
+package endTermtest.ui_components
 
 import org.junit.Test
 
